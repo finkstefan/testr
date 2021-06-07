@@ -1,0 +1,91 @@
+import { Component, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { Departman } from 'src/app/models/departman';
+import { Status } from 'src/app/models/status';
+import { Student } from 'src/app/models/student';
+import { StudentService } from 'src/app/services/student.service';
+import { StudentDialogComponent } from '../dialogs/student-dialog/student-dialog.component';
+
+@Component({
+  selector: 'app-student',
+  templateUrl: './student.component.html',
+  styleUrls: ['./student.component.css']
+})
+export class StudentComponent implements OnInit, OnChanges {
+
+  displayedColumns = ["id","ime","prezime","broj_indeksa","status","departman","actions"];
+dataSource: MatTableDataSource<Student>
+@Input() selektovaniDepartman: Departman
+@ViewChild(MatPaginator, {static: false}) paginator: MatPaginator
+@ViewChild(MatSort,{static: false}) sort: MatSort
+
+  constructor(private studentService:StudentService,private dialog:MatDialog) { }
+
+  ngOnInit(): void {
+   // this.loadData();
+
+  }
+
+  ngOnChanges(): void{
+    if(this.selektovaniDepartman.id){
+      this.loadData();
+    }
+  }
+
+  loadData():void{
+    this.studentService.getStudentiZaDepartman(this.selektovaniDepartman.id)
+    .subscribe(
+      data => {
+        this.dataSource = new MatTableDataSource(data);
+        this.dataSource.sort = this.sort;
+   this.dataSource.paginator = this.paginator;
+
+        this.dataSource.filterPredicate = (data, filter: string) => {
+          const accumulator = (currentTerm, key) => {
+            return key === 'status' ? currentTerm + data.status.naziv : currentTerm + data[key];
+          };
+          const dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
+          const transformedFilter = filter.trim().toLowerCase();
+          return dataStr.indexOf(transformedFilter) !== -1;
+        };
+
+         // sortiranje po nazivu ugnježdenog objekta
+        this.dataSource.sortingDataAccessor = (data, property) => {
+          switch (property) {
+            case 'status': return data.status.naziv.toLocaleLowerCase();
+            default: return data[property];
+          }
+        };
+      }
+    ),
+    (error:Error) => {
+      console.log(error.name + ' ' + error.message);
+     }
+  }
+
+public openDialog(flag: number, id?:number, ime?: string, prezime?:string, broj_indeksa?: string, status?: Status,departman?:Departman){
+const dialogRef = this.dialog.open(StudentDialogComponent,{data: {id,ime,prezime, broj_indeksa,status,departman}});
+dialogRef.componentInstance.flag = flag;
+if(flag === 1){
+  dialogRef.componentInstance.data.departman = this.selektovaniDepartman;
+}
+dialogRef.afterClosed()
+.subscribe(
+  result => {
+    if(result === 1){
+      this.loadData();
+    }
+  }
+)
+}
+applyFilter(filterValue: string){
+  filterValue=filterValue.trim();
+  filterValue = filterValue.toLocaleLowerCase();
+  this.dataSource.filter = filterValue;
+}
+}
+
+
