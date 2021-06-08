@@ -19,6 +19,7 @@ public flag: number;
   ngOnInit(): void {
   }
 
+
 public add(): void{
   this.fakultetService.addFakultet(this.data)
   .subscribe( data =>{
