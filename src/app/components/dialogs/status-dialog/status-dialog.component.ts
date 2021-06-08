@@ -43,7 +43,7 @@ public update(): void{
 public delete(): void{
   this.statusService.deleteStatus(this.data.id)
   .subscribe(data => {
-    this.snackBar.open('Uspesno obrisan fakultet', 'U redu', { duration: 2500 });
+    this.snackBar.open('Uspesno obrisan status', 'U redu', { duration: 2500 });
   }),
   (error:Error) => {
     console.log(error.name + ' -> ' + error.message)
