@@ -1,15 +1,9 @@
 <div class="container">
   <h3 mat-dialog-title *ngIf="flag == 1">Dodavanje studenta</h3>
-  <h3 mat-dialog-title *ngIf="flag == 2">Modifikacija studenta: {{data.broj_indeksa}}</h3>
-  <h3 mat-dialog-title *ngIf="flag == 3">Brisanje studenta: {{data.broj_indeksa}}</h3>
+  <h3 mat-dialog-title *ngIf="flag == 2">Modifikacija studenta: {{data.brojIndeksa}}</h3>
+  <h3 mat-dialog-title *ngIf="flag == 3">Brisanje studenta: {{data.brojIndeksa}}</h3>
 
   <form class="mat-dialog-content"  #formControl="ngForm">
-
-    <div class="form">
-      <mat-form-field>
-        <input matInput placeholder="ID" [(ngModel)]="data.id" name="id" [disabled]="flag == 3">
-      </mat-form-field>
-    </div>
 
     <div class="form">
       <mat-form-field>
@@ -25,7 +19,7 @@
 
     <div class="form">
       <mat-form-field>
-        <input matInput placeholder="Broj indeksa" [(ngModel)]="data.broj_indeksa" name="broj_indeksa" [disabled]="flag == 3">
+        <input matInput placeholder="Broj indeksa" [(ngModel)]="data.brojIndeksa" name="brojIndeksa" [disabled]="flag == 3">
       </mat-form-field>
     </div>
 

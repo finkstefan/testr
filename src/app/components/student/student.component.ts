@@ -16,7 +16,7 @@ import { StudentDialogComponent } from '../dialogs/student-dialog/student-dialog
 })
 export class StudentComponent implements OnInit, OnChanges {
 
-  displayedColumns = ["id","ime","prezime","broj_indeksa","status","departman","actions"];
+  displayedColumns = ["id","brojIndeksa","ime","prezime","status","departman","actions"];
 dataSource: MatTableDataSource<Student>
 @Input() selektovaniDepartman: Departman
 @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator
@@ -66,8 +66,8 @@ dataSource: MatTableDataSource<Student>
      }
   }
 
-public openDialog(flag: number, id?:number, ime?: string, prezime?:string, broj_indeksa?: string, status?: Status,departman?:Departman){
-const dialogRef = this.dialog.open(StudentDialogComponent,{data: {id,ime,prezime, broj_indeksa,status,departman}});
+public openDialog(flag: number, id?:number, ime?: string, prezime?:string, brojIndeksa?: string, status?: Status,departman?:Departman){
+const dialogRef = this.dialog.open(StudentDialogComponent,{data: {id,ime,prezime, brojIndeksa,status,departman}});
 dialogRef.componentInstance.flag = flag;
 if(flag === 1){
   dialogRef.componentInstance.data.departman = this.selektovaniDepartman;
@@ -80,6 +80,7 @@ dialogRef.afterClosed()
     }
   }
 )
+
 }
 applyFilter(filterValue: string){
   filterValue=filterValue.trim();

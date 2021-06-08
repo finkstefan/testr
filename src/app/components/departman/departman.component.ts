@@ -37,6 +37,9 @@ selektovaniDepartman: Departman
 this.departmanSubscription = this.departmanService.getAllDepartmans()
    .subscribe(data => {
        this.dataSource = new MatTableDataSource(data);
+       this.dataSource.paginator=this.paginator;
+       this.dataSource.sort = this.sort;
+
 
        this.dataSource.filterPredicate = (data, filter: string) => {
         const accumulator = (currentTerm, key) => {
@@ -67,7 +70,7 @@ dialogRef.componentInstance.flag=flag;
 dialogRef.afterClosed()
 .subscribe(
   result => {
-    if(result == 1){
+    if(result === 1){
       this.loadData();
     }
   }

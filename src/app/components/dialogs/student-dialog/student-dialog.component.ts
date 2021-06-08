@@ -30,7 +30,6 @@ flag: number;
     .subscribe(
       statusi => {
 this.statusi = statusi;
-  // pretraga po nazivu ugnježdenog objekta
 
       }
     ),
@@ -48,7 +47,7 @@ return a.id ===b.id;
     this.studentService.addStudent(this.data)
     .subscribe(
       () => {
-        this.snackBar.open('Uspesno dodat student: ' + this.data.broj_indeksa, 'U redu', { duration: 2500 });
+        this.snackBar.open('Uspesno dodat student: ' + this.data.brojIndeksa, 'U redu', { duration: 2500 });
       },
       (error:Error) => {
         console.log(error.name + ' -> ' + error.message)
