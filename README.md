@@ -1,3 +1,11 @@
+Backend: https://backendrva2021.herokuapp.com/
+Frontend: https://awesome-kilby-4c13f6.netlify.app/
+
+
+
+
+
+
 # AngularStarterProject
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.3.
