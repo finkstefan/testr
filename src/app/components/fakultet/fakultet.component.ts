@@ -15,11 +15,11 @@ import { FakultetDialogComponent } from '../dialogs/fakultet-dialog/fakultet-dia
 })
 export class FakultetComponent implements OnInit,OnDestroy {
 
-displayedColumns = ["id","naziv","sediste","actions"]; //niz kolona koje zelim da imam u tabeli
+displayedColumns = ["id","naziv","sediste","actions"];
 dataSource: MatTableDataSource<Fakultet>;
 subscription: Subscription;
-@ViewChild(MatSort,{static: false}) sort: MatSort
-@ViewChild(MatPaginator, {static: false}) paginator: MatPaginator
+@ViewChild(MatSort,{static: false}) sort: MatSort;
+@ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
 
   constructor(private fakultetService: FakultetService, private dialog:MatDialog) { }
 

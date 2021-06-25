@@ -12,24 +12,21 @@ import { FakultetService } from 'src/app/services/fakultet.service';
   templateUrl: './departman-dialog.component.html',
   styleUrls: ['./departman-dialog.component.css']
 })
-export class DepartmanDialogComponent implements OnInit, OnDestroy {
+export class DepartmanDialogComponent implements OnInit {
 
 fakulteti: Fakultet[];
 public flag: number;
-fakultetSubscription: Subscription
 
   constructor(public snackBar: MatSnackBar, public dialogRef:MatDialogRef<DepartmanDialogComponent>,@Inject(MAT_DIALOG_DATA) public data: Departman, public departmanService:DepartmanService, public fakultetService:FakultetService) { }
 
   ngOnInit(): void {
-this.fakultetSubscription = this.fakultetService.getAllFakultets()
+this.fakultetService.getAllFakultets()
 .subscribe((data) => {
   this.fakulteti = data;
 })
   }
 
-  ngOnDestroy(): void{
-this.fakultetSubscription.unsubscribe;
-  }
+
 
   compareTo(a,b){
     return a.id == b.id;

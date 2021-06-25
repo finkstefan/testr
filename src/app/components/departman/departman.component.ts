@@ -16,12 +16,12 @@ import { DepartmanDialogComponent } from '../dialogs/departman-dialog/departman-
 })
 export class DepartmanComponent implements OnInit, OnDestroy {
 
-displayedColumns = ["id","naziv","oznaka","fakultet","actions"]
-dataSource: MatTableDataSource<Departman>
-departmanSubscription: Subscription
-selektovaniDepartman: Departman
-@ViewChild(MatPaginator, {static: false}) paginator: MatPaginator
-@ViewChild(MatSort,{static: false}) sort: MatSort
+displayedColumns = ["id","naziv","oznaka","fakultet","actions"];
+dataSource: MatTableDataSource<Departman>;
+departmanSubscription: Subscription;
+selektovaniDepartman: Departman;
+@ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
+@ViewChild(MatSort,{static: false}) sort: MatSort;
 
   constructor(public departmanService:DepartmanService, public dialog:MatDialog) { }
 

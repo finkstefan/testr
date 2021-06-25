@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
@@ -15,11 +15,11 @@ import { StatusDialogComponent } from '../dialogs/status-dialog/status-dialog.co
 })
 export class StatusComponent implements OnInit, OnDestroy {
 
-  displayedColumns = ["id","naziv","oznaka","actions"]; //niz kolona koje zelim da imam u tabeli
+  displayedColumns = ["id","naziv","oznaka","actions"];
 dataSource: MatTableDataSource<Status>;
 subscription: Subscription;
-@ViewChild(MatPaginator, {static: false}) paginator: MatPaginator
-@ViewChild(MatSort,{static: false}) sort: MatSort
+@ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
+@ViewChild(MatSort,{static: false}) sort: MatSort;
 
   constructor(private statusService: StatusService, private dialog:MatDialog) { }
 

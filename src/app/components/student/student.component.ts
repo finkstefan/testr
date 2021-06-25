@@ -1,8 +1,9 @@
-import { Component, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Subscription } from 'rxjs';
 import { Departman } from 'src/app/models/departman';
 import { Status } from 'src/app/models/status';
 import { Student } from 'src/app/models/student';
@@ -14,13 +15,14 @@ import { StudentDialogComponent } from '../dialogs/student-dialog/student-dialog
   templateUrl: './student.component.html',
   styleUrls: ['./student.component.css']
 })
-export class StudentComponent implements OnInit, OnChanges {
+export class StudentComponent implements OnInit, OnChanges, OnDestroy {
 
   displayedColumns = ["id","brojIndeksa","ime","prezime","status","departman","actions"];
-dataSource: MatTableDataSource<Student>
-@Input() selektovaniDepartman: Departman
-@ViewChild(MatPaginator, {static: false}) paginator: MatPaginator
-@ViewChild(MatSort,{static: false}) sort: MatSort
+dataSource: MatTableDataSource<Student>;
+@Input() selektovaniDepartman: Departman;
+@ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
+@ViewChild(MatSort,{static: false}) sort: MatSort;
+subscription: Subscription;
 
   constructor(private studentService:StudentService,private dialog:MatDialog) { }
 
@@ -33,6 +35,10 @@ dataSource: MatTableDataSource<Student>
     if(this.selektovaniDepartman.id){
       this.loadData();
     }
+  }
+
+  ngOnDestroy(): void{
+    this.subscription.unsubscribe();
   }
 
   loadData():void{
